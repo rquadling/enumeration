@@ -185,7 +185,7 @@ class AbstractEnumerationTest extends TestCase
             [
                 'DuplicateValues' => [
                     DuplicateValues::members(),
-                    '{"ONE":1,"FIRST":1,"TWO":2,"SECOND":2,"THREE":3,"THIRD":3,"FOUR":4,"FOURTH":4,"FIVE":5,"FIFTH":5,"MINUS_ONE":-1,"MINUS_FIRST":-1,"REFERENCED_ONE":1,"REFERENCED_FIRST":1,"ARRAY_ONE":[1],"ARRAY_FIRST":[1],"CLASS_ONE":"RQuadlingTests\\\\Enumeration\\\\Fixtures\\\\DuplicateValues","CLASS_FIRST":"RQuadlingTests\\\\Enumeration\\\\Fixtures\\\\DuplicateValues","CONSTANT_ONE":3.1415926535898,"CONSTANT_FIRST":3.1415926535898}',
+                    '{"ONE":1,"FIRST":1,"TWO":2,"SECOND":2,"THREE":3,"THIRD":3,"FOUR":4,"FOURTH":4,"FIVE":5,"FIFTH":5,"MINUS_ONE":-1,"MINUS_FIRST":-1,"REFERENCED_ONE":1,"REFERENCED_FIRST":1,"ARRAY_ONE":[1],"ARRAY_FIRST":[1],"CLASS_ONE":"RQuadlingTests\\\\Enumeration\\\\Fixtures\\\\DuplicateValues","CLASS_FIRST":"RQuadlingTests\\\\Enumeration\\\\Fixtures\\\\DuplicateValues","CONSTANT_ONE":4294967295,"CONSTANT_FIRST":4294967295}',
                 ],
                 'NamespacedKeys' => [
                     NamespacedKeys::members(),

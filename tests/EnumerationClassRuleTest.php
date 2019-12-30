@@ -52,7 +52,7 @@ class EnumerationClassRuleTest extends RuleTestCase
                 ['Multiple names exist for the value "1" in DuplicateValues', 47],
                 ['Multiple names exist for the value "1" in DuplicateValues', 47],
                 ['Multiple names exist for the value "RQuadlingTests\Enumeration\Fixtures\DuplicateValues::class" in DuplicateValues', 47],
-                ['Multiple names exist for the value "3.1415926535898" in DuplicateValues', 47],
+                ['Multiple names exist for the value "4294967295" in DuplicateValues', 47],
                 ['Missing "* @method static DuplicateValues MINUS_ONE()" docblock entry', 47],
                 ['Missing "* @method static DuplicateValues MINUS_FIRST()" docblock entry', 47],
                 ['Missing "* @method static DuplicateValues CLASS_ONE()" docblock entry', 47],

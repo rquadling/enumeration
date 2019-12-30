@@ -69,6 +69,6 @@ class DuplicateValues extends AbstractEnumeration
     const CLASS_ONE = DuplicateValues::class;
     const CLASS_FIRST = DuplicateValues::class;
 
-    const CONSTANT_ONE = M_PI;
-    const CONSTANT_FIRST = M_PI;
+    const CONSTANT_ONE = INFO_ALL;
+    const CONSTANT_FIRST = INFO_ALL;
 }
