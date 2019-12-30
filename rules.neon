@@ -1,0 +1,8 @@
+includes:
+    - vendor/phpstan/phpstan-php-parser/extension.neon
+
+services:
+    -
+        class: RQuadling\Enumeration\PHPStan\Rules\EnumerationClassRule
+        tags:
+            - phpstan.rules.rule

@@ -1,0 +1,49 @@
+{
+    "name": "rquadling/enumeration",
+    "description": "Extension to Eloquent/Enumeration for use within RQuadling's projects.",
+    "authors": [
+        {
+            "name": "Richard Quadling",
+            "email": "RQuadling@GMail.com"
+        }
+    ],
+    "config": {
+        "sort-packages": true,
+        "process-timeout": 0,
+        "preferred-install": "dist",
+        "optimize-autoloader": true
+    },
+    "require": {
+        "php": "^7",
+        "ext-json": "*",
+        "eloquent/enumeration": "^5.1"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "phpstan/phpstan": "^0.9.2",
+        "phpstan/phpstan-php-parser": "^0.9.0",
+        "phpunit/phpunit": "^6.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "RQuadling\\Enumeration\\": "lib/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "RQuadlingTests\\Enumeration\\": "tests/"
+        }
+    },
+    "extra": {
+        "phpstan": {
+            "includes": [
+                "rules.neon"
+            ]
+        }
+    },
+    "scripts": {
+        "cs-lint": "php-cs-fixer fix --diff -vvv --dry-run",
+        "cs-fix": "php-cs-fixer fix . -vvv || true",
+        "sa": "vendor/bin/phpstan analyse --configuration phpstan.neon --no-progress --ansi -l 7 lib tests"
+    }
+}

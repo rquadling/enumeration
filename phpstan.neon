@@ -1,0 +1,9 @@
+includes:
+    - rules.neon
+
+parameters:
+    ignoreErrors:
+        # The following errors are expected.
+        - '#Missing "\* @method static DuplicateValues [A-Z_]++\(\)" docblock entry#'
+        - '#Multiple names exist for the value "[^"]++" in DuplicateValues#'
+        - '#WrongEnumerationBaseClass should extend RQuadling\\Enumeration\\AbstractEnumeration, not Eloquent\\Enumeration\\AbstractEnumeration#'
