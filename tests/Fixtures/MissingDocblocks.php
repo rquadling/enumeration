@@ -29,52 +29,15 @@ namespace RQuadlingTests\Enumeration\Fixtures;
 use RQuadling\Enumeration\AbstractEnumeration;
 
 /**
- * @method static DuplicateValues ONE()
- * @method static DuplicateValues FIRST()
- * @method static DuplicateValues TWO()
- * @method static DuplicateValues SECOND()
- * @method static DuplicateValues THREE()
- * @method static DuplicateValues THIRD()
- * @method static DuplicateValues FOUR()
- * @method static DuplicateValues FOURTH()
- * @method static DuplicateValues FIVE()
- * @method static DuplicateValues FIFTH()
- * @method static DuplicateValues MINUS_ONE()
- * @method static DuplicateValues MINUS_FIRST()
- * @method static DuplicateValues REFERENCED_ONE()
- * @method static DuplicateValues REFERENCED_FIRST()
- * @method static DuplicateValues ARRAY_ONE()
- * @method static DuplicateValues ARRAY_FIRST()
- * @method static DuplicateValues CLASS_ONE()
- * @method static DuplicateValues CLASS_FIRST()
- * @method static DuplicateValues CONSTANT_ONE()
- * @method static DuplicateValues CONSTANT_FIRST()
+ * @method static MissingDocblocks ONE()
+ * @method static MissingDocblocks THREE()
+ * @method static MissingDocblocks FIVE()
  */
-class DuplicateValues extends AbstractEnumeration
+class MissingDocblocks extends AbstractEnumeration
 {
     const ONE = 1;
-    const FIRST = 1;
     const TWO = 2;
-    const SECOND = 2;
     const THREE = 3;
-    const THIRD = 3;
     const FOUR = 4;
-    const FOURTH = 4;
     const FIVE = 5;
-    const FIFTH = 5;
-
-    const MINUS_ONE = -1;
-    const MINUS_FIRST = -1;
-
-    const REFERENCED_ONE = DuplicateValues::ONE;
-    const REFERENCED_FIRST = DuplicateValues::FIRST;
-
-    const ARRAY_ONE = [self::ONE];
-    const ARRAY_FIRST = [self::FIRST];
-
-    const CLASS_ONE = DuplicateValues::class;
-    const CLASS_FIRST = DuplicateValues::class;
-
-    const CONSTANT_ONE = INFO_ALL;
-    const CONSTANT_FIRST = INFO_ALL;
 }

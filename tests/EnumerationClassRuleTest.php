@@ -30,6 +30,9 @@ use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
 use RQuadling\Enumeration\PHPStan\Rules\EnumerationClassRule;
 
+/**
+ * @requires PHP < 7.4
+ */
 class EnumerationClassRuleTest extends RuleTestCase
 {
     protected function getRule(): Rule
@@ -37,33 +40,39 @@ class EnumerationClassRuleTest extends RuleTestCase
         return new EnumerationClassRule();
     }
 
-    public function testEnumerationClassRule()
+    public function testDuplicateValueRules()
     {
         require_once __DIR__.'/Fixtures/DuplicateValues.php';
         $this->analyse(
             [__DIR__.'/Fixtures/DuplicateValues.php'],
             [
-                ['Multiple names exist for the value "1" in DuplicateValues', 47],
-                ['Multiple names exist for the value "2" in DuplicateValues', 47],
-                ['Multiple names exist for the value "3" in DuplicateValues', 47],
-                ['Multiple names exist for the value "4" in DuplicateValues', 47],
-                ['Multiple names exist for the value "5" in DuplicateValues', 47],
-                ['Multiple names exist for the value "-1" in DuplicateValues', 47],
-                ['Multiple names exist for the value "1" in DuplicateValues', 47],
-                ['Multiple names exist for the value "1" in DuplicateValues', 47],
-                ['Multiple names exist for the value "RQuadlingTests\Enumeration\Fixtures\DuplicateValues::class" in DuplicateValues', 47],
-                ['Multiple names exist for the value "4294967295" in DuplicateValues', 47],
-                ['Missing "* @method static DuplicateValues MINUS_ONE()" docblock entry', 47],
-                ['Missing "* @method static DuplicateValues MINUS_FIRST()" docblock entry', 47],
-                ['Missing "* @method static DuplicateValues CLASS_ONE()" docblock entry', 47],
-                ['Missing "* @method static DuplicateValues CLASS_FIRST()" docblock entry', 47],
-                ['Missing "* @method static DuplicateValues CONSTANT_ONE()" docblock entry', 47],
-                ['Missing "* @method static DuplicateValues CONSTANT_FIRST()" docblock entry', 47],
+                ['Multiple names exist for the value "1" in DuplicateValues', 53],
+                ['Multiple names exist for the value "2" in DuplicateValues', 53],
+                ['Multiple names exist for the value "3" in DuplicateValues', 53],
+                ['Multiple names exist for the value "4" in DuplicateValues', 53],
+                ['Multiple names exist for the value "5" in DuplicateValues', 53],
+                ['Multiple names exist for the value "-1" in DuplicateValues', 53],
+                ['Multiple names exist for the value "1" in DuplicateValues', 53],
+                ['Multiple names exist for the value "1" in DuplicateValues', 53],
+                ['Multiple names exist for the value "RQuadlingTests\Enumeration\Fixtures\DuplicateValues::class" in DuplicateValues', 53],
+                ['Multiple names exist for the value "4294967295" in DuplicateValues', 53],
             ]
         );
     }
 
-    public function testEnumerationExtensionClassRule()
+    public function testMissingDocBlockRules()
+    {
+        require_once __DIR__.'/Fixtures/MissingDocblocks.php';
+        $this->analyse(
+            [__DIR__.'/Fixtures/MissingDocblocks.php'],
+            [
+                ['Missing "* @method static MissingDocblocks TWO()" docblock entry', 36],
+                ['Missing "* @method static MissingDocblocks FOUR()" docblock entry', 36],
+            ]
+        );
+    }
+
+    public function testWrongExtensionRule()
     {
         require_once __DIR__.'/Fixtures/WrongEnumerationBaseClass.php';
         $this->analyse(
