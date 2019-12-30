@@ -69,7 +69,7 @@ class EnumerationClassRuleTest extends RuleTestCase
         $this->analyse(
             [__DIR__.'/Fixtures/WrongEnumerationBaseClass.php'],
             [
-                ['WrongEnumerationBaseClass should extend RQuadling\Enumeration\AbstractEnumeration, not Eloquent\Enumeration\AbstractEnumeration', 7],
+                ['WrongEnumerationBaseClass should extend RQuadling\Enumeration\AbstractEnumeration, not Eloquent\Enumeration\AbstractEnumeration', 31],
             ]
         );
     }
