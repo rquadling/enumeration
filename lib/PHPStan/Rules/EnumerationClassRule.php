@@ -157,7 +157,9 @@ class EnumerationClassRule implements Rule
                 break;
             case ClassConstFetch::class:
                 if (!$rawValue->class instanceof Name || !$rawValue->name instanceof Node\Identifier) {
+                    // @codeCoverageIgnoreStart
                     throw new ConstExprEvaluationException('Cannot evaluate class constant with variable elements');
+                    // @codeCoverageIgnoreEnd
                 }
                 // A 'SomeClass::class' is not the same as 'SomeClass::constant'.
                 $constant = \sprintf(
