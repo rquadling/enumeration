@@ -27,7 +27,7 @@
 namespace RQuadling\Enumeration;
 
 use Eloquent\Enumeration\AbstractValueMultiton;
-use Eloquent\Enumeration\Exception\UndefinedMemberExceptionInterface;
+use Eloquent\Enumeration\Exception\AbstractUndefinedMemberException;
 use JsonSerializable;
 
 /**
@@ -105,7 +105,9 @@ abstract class AbstractEnumeration extends \Eloquent\Enumeration\AbstractEnumera
     }
 
     /**
-     * @return static[]
+     * @param array<mixed> $values
+     *
+     * @return array<static>
      */
     public static function membersByValues(array $values): array
     {
@@ -135,19 +137,24 @@ abstract class AbstractEnumeration extends \Eloquent\Enumeration\AbstractEnumera
     /**
      * @param mixed $value
      *
-     * @throws UndefinedMemberExceptionInterface
+     * @throws AbstractUndefinedMemberException
      */
     public static function keyByValue($value): string
     {
         return static::memberByValue($value)->key();
     }
 
+    /**
+     * @param mixed $value
+     */
     public static function friendlyKeyByValue($value): string
     {
         return static::memberByValue($value)->friendlyKey();
     }
 
     /**
+     * @param mixed[] $values
+     *
      * @return string[]
      */
     public static function keysByValues(array $values): array
@@ -156,7 +163,9 @@ abstract class AbstractEnumeration extends \Eloquent\Enumeration\AbstractEnumera
     }
 
     /**
-     * @return string[]
+     * @param mixed[] $values
+     *
+     * @return array<string>
      */
     public static function friendlyKeysByValues(array $values): array
     {

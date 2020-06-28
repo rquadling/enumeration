@@ -9,20 +9,20 @@
     ],
     "config": {
         "sort-packages": true,
-        "process-timeout": 0,
         "preferred-install": "dist",
         "optimize-autoloader": true
     },
     "require": {
-        "php": "^7",
+        "php": "^7.4",
         "ext-json": "*",
-        "eloquent/enumeration": "^5.1"
+        "eloquent/enumeration": "^6.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16",
-        "phpstan/phpstan": "*",
-        "phpstan/phpstan-php-parser": "*",
-        "phpunit/phpunit": "^6.5"
+        "phpstan/phpstan": "^0.12",
+        "phpstan/phpstan-php-parser": "^0.12",
+        "phpstan/phpstan-phpunit": "^0.12",
+        "phpunit/phpunit": "^9.2"
     },
     "autoload": {
         "psr-4": {
@@ -44,6 +44,6 @@
     "scripts": {
         "cs-lint": "php-cs-fixer fix --diff -vvv --dry-run",
         "cs-fix": "php-cs-fixer fix . -vvv || true",
-        "sa": "vendor/bin/phpstan analyse --configuration phpstan.neon --no-progress --ansi -l 7 lib tests"
+        "sa": "vendor/bin/phpstan analyse --configuration phpstan.neon --no-progress --ansi -l 8 lib tests"
     }
 }
