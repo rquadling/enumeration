@@ -26,12 +26,14 @@
 
 namespace RQuadling\Enumeration\PHPStan\Rules;
 
+use PhpParser\ConstExprEvaluationException;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\UnaryMinus;
+use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\DNumber;
 use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
@@ -41,10 +43,13 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use RQuadling\Enumeration\AbstractEnumeration;
 
+/**
+ * @implements Rule<Class_>
+ */
 class EnumerationClassRule implements Rule
 {
     /**
-     * @return string Class implementing \PhpParser\Node
+     * @return class-string<Class_>
      */
     public function getNodeType(): string
     {
@@ -65,7 +70,7 @@ class EnumerationClassRule implements Rule
         if (
             $node->extends &&
             $node->extends->toString() === \Eloquent\Enumeration\AbstractEnumeration::class &&
-            $node->namespacedName &&
+            isset($node->namespacedName) &&
             $node->namespacedName->toString() !== AbstractEnumeration::class
         ) {
             $result[] = \sprintf(
@@ -107,7 +112,7 @@ class EnumerationClassRule implements Rule
                     $rawConstants
                 )
             );
-            if (\count($constants) !== \count(\array_unique($constants, SORT_REGULAR))) {
+            if (\is_array($constants) && \count($constants) !== \count(\array_unique($constants, SORT_REGULAR))) {
                 foreach (\array_diff_assoc($constants, \array_unique($constants)) as $value) {
                     $result[] = \sprintf('Multiple names exist for the value "%s" in %s', $value, $node->name);
                 }
@@ -135,6 +140,9 @@ class EnumerationClassRule implements Rule
         return $result;
     }
 
+    /**
+     * @return int|mixed|string
+     */
     private function getValue(Expr $rawValue)
     {
         switch (\get_class($rawValue)) {
@@ -148,6 +156,11 @@ class EnumerationClassRule implements Rule
                 $value = \md5(\serialize($rawValue));
                 break;
             case ClassConstFetch::class:
+                if (!$rawValue->class instanceof Name || !$rawValue->name instanceof Node\Identifier) {
+                    // @codeCoverageIgnoreStart
+                    throw new ConstExprEvaluationException('Cannot evaluate class constant with variable elements');
+                    // @codeCoverageIgnoreEnd
+                }
                 // A 'SomeClass::class' is not the same as 'SomeClass::constant'.
                 $constant = \sprintf(
                     '%s::%s',

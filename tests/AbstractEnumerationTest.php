@@ -37,13 +37,21 @@ class AbstractEnumerationTest extends TestCase
 {
     /**
      * @dataProvider provideForMembersByValues
+     *
+     * @param class-string<AbstractEnumeration> $enumClass
+     * @param array<int, mixed> $values
+     * @param array<AbstractEnumeration> $expectedMembers
      */
-    public function testMembersByValues(string $enumClass, array $values, array $expectedKeys)
+    public function testMembersByValues(string $enumClass, array $values, array $expectedMembers): void
     {
-        $this->assertEquals($expectedKeys, $enumClass::membersByValues($values));
+        /* @var AbstractEnumeration $enumClass */
+        $this->assertEquals($expectedMembers, $enumClass::membersByValues($values));
     }
 
-    public function provideForMembersByValues()
+    /**
+     * @return array<string, array<int, array<int|string, int|DuplicateValues|NoDuplicateValues>|class-string<AbstractEnumeration>>>
+     */
+    public function provideForMembersByValues(): array
     {
         return [
             'NoDuplicateValues EmptyRequest' => [NoDuplicateValues::class, [], []],
@@ -92,27 +100,17 @@ class AbstractEnumerationTest extends TestCase
     }
 
     /**
-     * @dataProvider provideNamespacedEvents
+     * @dataProvider provideNamespacedKeys
      */
-    public function testNamespacedKey(AbstractEnumeration $enum, string $expectedKey)
+    public function testNamespacedKey(AbstractEnumeration $enum, string $expectedKey): void
     {
         $this->assertEquals($expectedKey, $enum->namespacedKey());
-    }
-
-    public function provideNamespacedEvents()
-    {
-        return [
-            [NamespacedKeys::SIMPLE(), 'simple'],
-            [NamespacedKeys::WITH_UNDERSCORE(), 'with_underscore'],
-            [NamespacedKeys::NAMESPACED__ACTION(), 'namespaced.action'],
-            [NamespacedKeys::NAME_SPACED__WITH_UNDERSCORES(), 'name_spaced.with_underscores'],
-        ];
     }
 
     /**
      * @dataProvider provideNamespacedKeys
      */
-    public function testMemberByNamespacedKey(AbstractEnumeration $enum, string $namespacedKey)
+    public function testMemberByNamespacedKey(AbstractEnumeration $enum, string $namespacedKey): void
     {
         $member = NamespacedKeys::memberByNamespacedKey($namespacedKey);
 
@@ -120,7 +118,10 @@ class AbstractEnumerationTest extends TestCase
         $this->assertEquals($member->key(), $enum->key());
     }
 
-    public function provideNamespacedKeys()
+    /**
+     * @return array<int, array<int, NamespacedKeys|string>>
+     */
+    public function provideNamespacedKeys(): array
     {
         return [
             [NamespacedKeys::SIMPLE(), 'simple'],
@@ -130,7 +131,7 @@ class AbstractEnumerationTest extends TestCase
         ];
     }
 
-    public function testValues()
+    public function testValues(): void
     {
         $this->assertEquals(
             [
@@ -144,7 +145,7 @@ class AbstractEnumerationTest extends TestCase
         );
     }
 
-    public function testKeys()
+    public function testKeys(): void
     {
         $this->assertEquals(
             [
@@ -158,7 +159,7 @@ class AbstractEnumerationTest extends TestCase
         );
     }
 
-    public function testFriendlyKeys()
+    public function testFriendlyKeys(): void
     {
         $this->assertEquals(
             [
@@ -173,13 +174,18 @@ class AbstractEnumerationTest extends TestCase
 
     /**
      * @dataProvider provideJsonSerialization
+     *
+     * @param array<DuplicateValues|NamespacedKeys|NoDuplicateValues> $members
      */
-    public function testJsonSerialization(array $members, string $expectedSerialization)
+    public function testJsonSerialization(array $members, string $expectedSerialization): void
     {
         $this->assertEquals($expectedSerialization, \json_encode($members));
     }
 
-    public function provideJsonSerialization()
+    /**
+     * @return array<string, array<int, array<string, DuplicateValues|NamespacedKeys|NoDuplicateValues>|string>>
+     */
+    public function provideJsonSerialization(): array
     {
         return
             [
@@ -198,12 +204,12 @@ class AbstractEnumerationTest extends TestCase
             ];
     }
 
-    public function testKeyByValuePass()
+    public function testKeyByValuePass(): void
     {
         $this->assertEquals('SIMPLE', NamespacedKeys::keyByValue(NamespacedKeys::SIMPLE));
     }
 
-    public function testKeyByValueFail()
+    public function testKeyByValueFail(): void
     {
         $this->expectException(UndefinedMemberException::class);
         $this->expectExceptionMessage("No member with value equal to -1 defined in class 'RQuadlingTests\\\\Enumeration\\\\Fixtures\\\\NamespacedKeys'");
@@ -211,12 +217,12 @@ class AbstractEnumerationTest extends TestCase
         NamespacedKeys::keyByValue(-1);
     }
 
-    public function testFriendlyKeyByValuePass()
+    public function testFriendlyKeyByValuePass(): void
     {
         $this->assertEquals('Name Spaced  With Underscores', NamespacedKeys::friendlyKeyByValue(NamespacedKeys::NAME_SPACED__WITH_UNDERSCORES));
     }
 
-    public function testFriendlyKeyByValueFail()
+    public function testFriendlyKeyByValueFail(): void
     {
         $this->expectException(UndefinedMemberException::class);
         $this->expectExceptionMessage("No member with value equal to -1 defined in class 'RQuadlingTests\\\\Enumeration\\\\Fixtures\\\\NamespacedKeys'");
@@ -226,13 +232,21 @@ class AbstractEnumerationTest extends TestCase
 
     /**
      * @dataProvider provideForKeysByValues
+     *
+     * @param class-string<AbstractEnumeration> $enumClass
+     * @param array<int, int|string> $values
+     * @param array<string> $expectedKeys
      */
-    public function testKeysByValues(string $enumClass, array $values, array $expectedKeys)
+    public function testKeysByValues(string $enumClass, array $values, array $expectedKeys): void
     {
+        /* @var AbstractEnumeration $enumClass */
         $this->assertEquals($expectedKeys, $enumClass::keysByValues($values));
     }
 
-    public function provideForKeysByValues()
+    /**
+     * @return array<string, array<int, array<int, int|string>|class-string>>
+     */
+    public function provideForKeysByValues(): array
     {
         return [
             'NoDuplicateValues EmptyRequest' => [NoDuplicateValues::class, [], []],
@@ -282,13 +296,21 @@ class AbstractEnumerationTest extends TestCase
 
     /**
      * @dataProvider provideForFriendlyKeysByValues
+     *
+     * @param class-string<AbstractEnumeration> $enumClass
+     * @param array<int, int|string> $values
+     * @param array<string> $expectedKeys
      */
-    public function testFriendlyKeysByValues(string $enumClass, array $values, array $expectedKeys)
+    public function testFriendlyKeysByValues(string $enumClass, array $values, array $expectedKeys): void
     {
+        /* @var AbstractEnumeration $enumClass */
         $this->assertEquals($expectedKeys, $enumClass::friendlyKeysByValues($values));
     }
 
-    public function provideForFriendlyKeysByValues()
+    /**
+     * @return array<string, array<int, array<int, int|string>|class-string>>
+     */
+    public function provideForFriendlyKeysByValues(): array
     {
         return [
             'NoDuplicateValues EmptyRequest' => [NoDuplicateValues::class, [], []],

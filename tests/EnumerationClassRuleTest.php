@@ -26,21 +26,20 @@
 
 namespace RQuadlingTests\Enumeration;
 
-use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
 use RQuadling\Enumeration\PHPStan\Rules\EnumerationClassRule;
 
 /**
- * @requires PHP < 7.4
+ * @extends RuleTestCase<EnumerationClassRule>
  */
 class EnumerationClassRuleTest extends RuleTestCase
 {
-    protected function getRule(): Rule
+    protected function getRule(): EnumerationClassRule
     {
         return new EnumerationClassRule();
     }
 
-    public function testDuplicateValueRules()
+    public function testDuplicateValueRules(): void
     {
         require_once __DIR__.'/Fixtures/DuplicateValues.php';
         $this->analyse(
@@ -60,7 +59,7 @@ class EnumerationClassRuleTest extends RuleTestCase
         );
     }
 
-    public function testMissingDocBlockRules()
+    public function testMissingDocBlockRules(): void
     {
         require_once __DIR__.'/Fixtures/MissingDocblocks.php';
         $this->analyse(
@@ -72,7 +71,7 @@ class EnumerationClassRuleTest extends RuleTestCase
         );
     }
 
-    public function testWrongExtensionRule()
+    public function testWrongExtensionRule(): void
     {
         require_once __DIR__.'/Fixtures/WrongEnumerationBaseClass.php';
         $this->analyse(
